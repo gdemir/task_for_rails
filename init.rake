@@ -100,7 +100,6 @@ namespace :info do
       puts "Tablolar"
       Config["tables"].each do |table, fields|
          puts "  # #{table}"
-#         puts fields
          fields.each { |field, type| puts "    - #{field} : #{type}" }
       end
    end

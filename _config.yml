@@ -1,0 +1,17 @@
+dirs: []
+tables:
+   table:
+      field1: string
+      field2: string
+      field3: string
+
+# Example using:
+#
+# dirs: [admin, user, home]
+# tables:
+#   admin:
+#      first_name: string
+#      last_name: string
+#      password: string
+#      status: integer
+#      image_url: string

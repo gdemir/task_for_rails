@@ -26,7 +26,7 @@ Config = YAML.load_file(File.join(TASKS_DIR, '_config.yml'))
 # --------------------------------------------------------------------
 
 task :init => %w(init:db init:dir init:table)
-task :info => %w(info:dir info:table)
+task :info => %w(info:db info:dir info:table)
 
 # Example using:
 #
@@ -38,6 +38,7 @@ task :info => %w(info:dir info:table)
 #  rake table:update
 
 #  rake info
+#  rake info:db
 #  rake info:dir
 #  rake info:table
 
@@ -89,16 +90,26 @@ namespace :table do
 end
 
 namespace :info do
+   # Veritabanı hakkında
+   task :db do
+      puts "Veritabanı"
+      config   = Rails.configuration.database_configuration
+      puts "  type     : #{config[Rails.env]["adapter"]}"
+      puts "  name     : #{config[Rails.env]["database"]}"
+      puts "  username : #{config[Rails.env]["username"]}"
+      puts "  password : #{config[Rails.env]["password"]}"
+   end
+
    # Dizinler hakkında
    task :dir do
       puts "Dizinler"
-      Config["dirs"].each { |dir| puts "- #{dir}" }
+      Config["dirs"].each { |dir| puts "  - #{dir}" }
    end
 
    # Tablolar Hakkında
    task :table do
       puts "Tablolar"
-      Config["tables"].each do |table, fields|
+      Config["tables"].sort.each do |table, fields|
          puts "  # #{table}"
          fields.each { |field, type| puts "    - #{field} : #{type}" }
       end
